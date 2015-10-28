@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request
+from flask import Flask, url_for, request, render_template,redirect
 app = Flask(__name__)
 
 @app.route('/')
@@ -7,14 +7,35 @@ def show_url_for():
 
 
 @app.route('/login', methods=['GET','POST'])
+
 def login():
-	if request.values:
-		return 'user is %s' %request.values['user']
+	error = None
+	if request.method == 'POST':
+
+		if valid_login(
+			request.form.get('username'),
+			request.form.get('password')):
+			return redirect(url_for('welcome',username=request.form.get('username')))
+
+		else:
+			error = "Incorrect Username and Password"
+	
+	return render_template('login.html',error=error)
+
+
+
+def valid_login(username,password):
+	if username==password:
+		return True
+
 	else:
-		return '<form method="post" action="/login"><input type="text" name="user"/><p><button type="submit">Submit</button>' 
+		False
 
+@app.route('/welcome/<username>')
 
-@app.route('/user/<username>')
+def welcome(username):
+	return render_template('welcome.html',username=username)
+
 def show_user_profile(username):
 
 	#return 'User: ' + str(username)
