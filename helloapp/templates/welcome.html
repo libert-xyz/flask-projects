@@ -1,6 +1,9 @@
-<!doctype html>
+{% extends "base.html" %}
 
+{% block title %}Welcome{% endblock %}
 
-<title>Welcome Page</title>
+{% block content %}
 
-<p>Welcome back, {{username}}!</p>
+<p>Welcome back, {{username}}! - <a href="{{url_for('logout')}}">Logout</a></p>
+
+{% endblock %}

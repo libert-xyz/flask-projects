@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+
+	{%block  head%}
+	<title>{%block title%}{% endblock %} - Flask APP</title>
+	{% endblock %}
+</head>
+<body>
+	<div id="logo">
+		<img src="{{url_for('static',filename='logo.png')}}" alt="Wayna" height="100px" />
+
+	</div>
+
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	<ul class="flashes">
+		{% for message in messages %}
+		<li>{{message}}</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+	{% endwith %}
+
+	<div id="content">
+		{% block content %}
+		{% endblock %}
+	</div>
+	
+	<br>
+
+	<footer>
+		{% block footer %}
+		&copy; Copyright 2015 by <a href="www.waynasolutions.com">Wayna Co.</a>
+		{% endblock %}
+	</footer>
+	
+</body>
+</html>

@@ -1,8 +1,8 @@
-<!doctype html>
+{% extends "base.html" %}
 
+{% block title %}Login{% endblock %}
 
-
-<title>Login Page</title>
+{% block content %}
 
 <form action="/login" method="POST">
 
@@ -25,3 +25,5 @@
 	</button>
 
 </form>
+
+{% endblock %}
