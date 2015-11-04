@@ -17,7 +17,7 @@ WORKDIR /opt/flask_blog
 
 
 #Run command
-CMD["python","app.py"]
+CMD ["python","app.py"]
 
 #port
 EXPOSE 5000
