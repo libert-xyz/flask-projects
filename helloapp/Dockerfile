@@ -1,8 +1,3 @@
-#
-# First Flask App Dockerfile
-#
-#
-
 # Pull base image.
 FROM centos:latest
 
@@ -21,5 +16,9 @@ ADD . /opt/flask_blog
 WORKDIR /opt/flask_blog
 
 
+#Run command
+CMD["python","hello.py"]
+
+#port
 EXPOSE 5000
 
