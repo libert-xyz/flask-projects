@@ -1,0 +1,3 @@
+docker build -t flask-project .
+
+dockei run -it -p 80:5000 -v /opt:/opt/flask_blog flask-project /bin/bash

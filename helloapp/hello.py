@@ -80,7 +80,7 @@ if __name__ == '__main__':
 	handler.setLevel(logging.INFO)
 	app.logger.addHandler(handler)
 	app.debug = True
-	app.run()
+	app.run("0.0.0.0")
 
 
 
