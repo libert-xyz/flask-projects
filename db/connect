@@ -1,0 +1,3 @@
+docker run --name db -e MYSQL_ROOT_PASSWORD=pass -p 3306:3306 -d mariadb:latest
+
+CREATE TABLE user(user_id INT NOT NULL AUTO_INCREMENT, username VARCHAR(64) NOT NULL, password VARCHAR(64) NOT NULL, PRIMARY KEY(user_id));
