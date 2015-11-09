@@ -22,7 +22,9 @@ except:
     print "Database exists"
 
 from flask_blog import db
+
 #add all modules here
 from user.models import *
+from home.models import *
 
 db.create_all()
