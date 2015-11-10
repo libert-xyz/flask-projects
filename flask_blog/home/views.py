@@ -4,7 +4,7 @@ from home.form import SetupForm
 from flask_blog import db
 from user.models import User
 from home.models import Blog
-
+from user.decorators import login_required
 
 
 @app.route('/')
@@ -14,6 +14,7 @@ def index():
     return "Hello World"
 
 @app.route('/admin')
+@login_required
 def admin():
     blogs = Blog.query.count()
     if blogs == 0:

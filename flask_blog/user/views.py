@@ -1,13 +1,18 @@
 from flask_blog import app
 from user.form import RegisterForm, LoginForm
-from flask import render_template, redirect, session
+from flask import render_template, redirect, session, request
 from user.models import User
-
+from user.decorators import login_required
 @app.route('/login', methods = ('GET','POST'))
 def login():
 
     form = LoginForm()
     error = None
+
+    if request.method == 'GET' and request.args.get('next'):
+        session['next'] = request.args.get('next')
+
+
     if form.validate_on_submit():
         user = User.query.filter_by(
 
@@ -16,7 +21,13 @@ def login():
         ).limit(1)
         if user.count():
             session['username'] = form.username.data
-            return redirect('/login_success')
+            if 'next' in session:
+                next = session.get('next')
+                session.pop('next')
+                return redirect(next)
+            else:
+
+                return redirect('/login_success')
         else:
             error = "Incorrect username and password"
     return render_template('user/login.html', form=form, error=error)
@@ -37,5 +48,6 @@ def success():
     return "Registered!"
 
 @app.route('/login_success')
+@login_required
 def login_success():
     return 'Author logged in'
