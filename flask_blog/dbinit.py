@@ -15,7 +15,7 @@ try:
     engine = sqlalchemy.create_engine(db_uri)
     conn = engine.connect()
     conn.execute("commit")
-    conn.execute("CREATE DATABASE" + app.config['BLOG_DATABASE_NAME'])
+    conn.execute("CREATE DATABASE " + app.config['BLOG_DATABASE_NAME'])
     conn.close()
 
 except:
