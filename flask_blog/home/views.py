@@ -5,7 +5,7 @@ from flask_blog import db
 from user.models import User
 from home.models import Blog
 from user.decorators import login_required
-
+import bcrypt
 
 @app.route('/')
 @app.route('/index')
@@ -26,10 +26,13 @@ def setup():
     form = SetupForm()
     error = None
     if form.validate_on_submit():
+        salt = bcrypt.gensalt()
+        hashed_password = bcrypt.hashpw(form.password.data, salt)
         user = User(
             form.fullname.data,
             form.email.data,
-            form.password.data,
+            form.username.data,
+            hashed_password,
             True
         )
         db.session.add(user)
@@ -43,10 +46,12 @@ def setup():
             error = "Error creating user"
         if user.id and blog.id:
             db.session.commit()
-            flash('Blog created')
-            return redirect(url_for('admin'))
+
         else:
             db.session.rollback()
             error = "Error creating blog"
+
+        flash('Blog created')
+        return redirect('/admin')
 
     return render_template('blog/setup.html', form=form)
