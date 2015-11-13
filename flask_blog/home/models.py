@@ -34,7 +34,7 @@ class Post(db.Model):
     def __init__(self, blog, author, title, body, category, slug, publish_date=None, live=True,):
 
         self.blog_id = blog.id
-        self.user_id = user.id
+        self.user_id = author.id
         self.title = title
         self.body = body
         self.category = category
@@ -55,4 +55,4 @@ class Category(db.Model):
         self.name = name
 
     def __repr__(self):
-        return '<Category %r>' %self.name
+        return self.name
