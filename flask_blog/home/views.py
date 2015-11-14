@@ -12,13 +12,19 @@ from slugify import slugify
 @app.route('/index')
 def index():
 
-    return "Hello World"
+    blog = Blog.query.first()
+    posts = Post.query.order_by(Post.publish_date.desc())
+    return render_template('blog/index.html', blog=blog, posts=posts)
+
 
 @app.route('/admin')
+@login_required
 @author_required
 
 def admin():
-    return render_template('blog/admin.html')
+    posts = Post.query.order_by(Post.publish_date.desc())
+
+    return render_template('blog/admin.html',posts=posts)
 
 
 @app.route('/setup', methods=('GET', 'POST'))
@@ -80,5 +86,10 @@ def post():
         post = Post(blog, author, title, body, category, slug)
         db.session.add(post)
         db.session.commit()
-        return redirect(url_for('admin'))
+        return redirect(url_for('article', slug=slug))
     return render_template('blog/post.html', form=form)
+
+@app.route('/article/<slug>')
+def article(slug):
+    post = Post.query.filter_by(slug=slug).first_or_404()
+    return render_template('blog/article.html', post=post)

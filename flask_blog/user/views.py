@@ -30,7 +30,7 @@ def login():
                     session.pop('next')
                     return redirect(next)
                 else:
-                    return redirect('/login_success')
+                    return redirect(url_for('index'))
             else:
                 error = 'Incorrect password'
         else:
@@ -51,14 +51,10 @@ def register():
 
 def logout():
     session.pop('username')
+    session.pop('is_author')
     return redirect(url_for('index'))
 
 @app.route('/success')
 
 def success():
     return "Registered!"
-
-@app.route('/login_success')
-@login_required
-def login_success():
-    return 'Author logged in'
