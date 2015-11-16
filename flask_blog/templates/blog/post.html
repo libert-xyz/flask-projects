@@ -11,10 +11,11 @@
       <h3>Blog Post</h3>
 
       {% from "_formhelpers.html" import render_field %}
-      <form role="form" action="{{ url_for('post')}}" method="POST">
+      <form role="form" action="{{ url_for('post')}}" method="POST" enctype="multipart/form-data">
 
         {{ form.hidden_tag() }}
 
+        {{render_field(form.image, class="form-control")}}
         {{render_field(form.title, class="form-control")}}
         {{render_field(form.body, class="form-control",rows=10)}}
         {{render_field(form.category, class="form-control")}}
