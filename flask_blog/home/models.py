@@ -38,7 +38,7 @@ class Post(db.Model):
         return uploaded_images.url(self.image)
 
 
-    def __init__(self, blog, author, title, body, category, slug, publish_date=None, live=True,):
+    def __init__(self, blog, author, title, body, category, slug, image=None, publish_date=None, live=True,):
 
         self.blog_id = blog.id
         self.user_id = author.id
@@ -46,6 +46,7 @@ class Post(db.Model):
         self.body = body
         self.category = category
         self.slug = slug
+        self.image = image
         if publish_date is None:
             self.publish_date = datetime.utcnow()
         self.live = live
