@@ -8,14 +8,19 @@
 
   <div class="col-md-offset-3 col-md-6">
 
-      <h1> {{ blog.name }}</h1>
+      <h1><a href="{{url_for('index')}}">{{ blog.name }}</a></h1>
 
       <div class="post-list">
-        {% for post in posts %}
+        {% for post in posts.items %}
         <div class="post-item">
           <h4><a href="{{url_for('article',slug=post.slug)}}">
               {{ post.title }}
           </a></h4>
+
+          <div class="post-body">
+            {{ post.body[:220] }}
+
+          </div>
           <div class="text-muted">
             Posted by {{ post.author.fullname }} on {{ post.publish_date.strftime('%Y-%m-%d')}} in {{ post.category.name }}
           </div>
@@ -23,6 +28,19 @@
         {% endfor %}
 
       </div>
+
+      <div class="post-paginate">
+
+        {% if posts.has_prev %} <a href="{{url_for('index', page=posts.prev_num) }}">&lt;&lt; Newer Posts</a>
+        {% else%}&lt;&lt; Newer Posts {% endif %}
+
+        {% if posts.has_next %} <a href="{{url_for('index', page=posts.next_num) }}">Older Posts &gt;&gt;</a>
+        {% else%}Older Posts &gt;&gt; {% endif %}
+
+
+
+      </div>
+
   </div>
 </div>
 

@@ -30,7 +30,7 @@
       </p>
 
       <div class="post-list">
-        {% for post in posts %}
+        {% for post in posts.items %}
         <div class="post-item">
           <h4><a href="{{url_for('article',slug=post.slug)}}">
               {{ post.title }}
@@ -42,6 +42,20 @@
         {% endfor %}
 
       </div>
+
+
+      <div class="post-paginate">
+
+        {% if posts.has_prev %} <a href="{{url_for('admin', page=posts.prev_num) }}">&lt;&lt; Newer Posts</a>
+        {% else%}&lt;&lt; Newer Posts {% endif %}
+
+        {% if posts.has_next %} <a href="{{url_for('admin', page=posts.next_num) }}">Older Posts &gt;&gt;</a>
+        {% else%}Older Posts &gt;&gt; {% endif %}
+
+
+
+      </div>
+
   </div>
 </div>
 
