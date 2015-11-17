@@ -9,7 +9,7 @@
 
         {% include '_flashmessages.html' %}
 
-        
+
 
         {% if post.image %}
         <img src="{{ post.imgsrc }}" height="300px" class="img-rounded" />
@@ -17,12 +17,21 @@
 
       <h3>{{ post.title}}</h3>
 
+
+
         {{ post.body|markdown}}
 
         <hr />
 
+        {% if session.get('is_author') %}
+        <a href="{{ url_for ('edit', post_id=post.id )}}">Edit</a> -
+        <a href="{{ url_for ('delete', post_id=post.id )}}">Delete</a>
+        {% endif %}
+
         <div class="text-muted">Posted by {{ post.author.fullname}}
           on {{ post.publish_date.strftime('%Y-%m-%d') }}
+
+
         </div>
     </div>
   </div>
