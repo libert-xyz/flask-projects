@@ -1,0 +1,5 @@
+virtualenv venv
+
+source bin/activate
+
+pip install flask peewee pygments markdown micawber BeautifulSoup
