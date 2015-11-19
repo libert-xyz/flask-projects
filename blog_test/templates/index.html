@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Welcome {{ request.form['username'] }}</h1>
+<br>
+<p>Click <a href="/logout">here</a> to logout.</p>
+
+{% endblock%}
