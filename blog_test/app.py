@@ -53,10 +53,10 @@ def login():
     if request.method == 'POST':
         if request.form['username'] == 'admin' and request.form['password'] == 'admin':
             session['logged_in'] = True
-            flash('You were just logged in!')
+            flash('You were logged in')
             return redirect(url_for('home'))
         else:
-            error =  "Invalid credentials"
+            error =  "Invalid Credentials. Please try again."
 
     return render_template('login.html', error=error)
 
@@ -66,7 +66,7 @@ def login():
 def logout():
 
     session.pop('logged_in', None)
-    flash('You were just logged out')
+    flash('You were logged out')
 
     return redirect(url_for('welcome'))
 
