@@ -1,11 +1,22 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash, g
 from functools import wraps
-import sqlite3
+from flask.ext.sqlalchemy import SQLAlchemy
+#import sqlite3
 
 #app objects
 app = Flask(__name__)
-app.secret_key = 'pierre'
-app.database = 'sample.db'
+
+#config.py
+import os
+app.config.from_object(os.environ['APP_SETTINGS'])
+#create the sqlalchemy objects
+
+db = SQLAlchemy(app)
+
+from models import *
+
+
+#app.database = 'sample.db'
 
 #login required decorators
 
@@ -23,17 +34,18 @@ def login_required(f):
 @app.route('/')
 @login_required
 def home():
-    g.db = connect_db()
-    cur = g.db.execute('select * from posts')
+    posts = db.session.query(BlogPost).all()
+    #g.db = connect_db()
+    #cur = g.db.execute('select * from posts')
     #print cur
     #print cur.fetchall()
-    post_dic = {}
-    posts = []
-    for row in cur.fetchall():
-        posts.append(dict(title = row[0], description = row[1]))
+    #post_dic = {}
+    #posts = []
+    #for row in cur.fetchall():
+    #    posts.append(dict(title = row[0], description = row[1]))
 
     #posts = [dict(title=row[0], description=row[1]) for row in cur.fetchall()]
-    g.db.close()
+    #g.db.close()
     return render_template('index.html', posts=posts)
 
 @app.route('/about')
@@ -70,8 +82,8 @@ def logout():
 
     return redirect(url_for('welcome'))
 
-def connect_db():
-    return sqlite3.connect(app.database)
+#def connect_db():
+#    return sqlite3.connect(app.database)
 
 if __name__ == '__main__':
     app.run(debug=True)
