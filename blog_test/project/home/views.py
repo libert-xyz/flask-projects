@@ -3,7 +3,7 @@
 #################
 
 from project import app, db
-from project.models import BlogPost
+from project.models import BlogPost, User
 from flask import Flask, flash, redirect, session, url_for, render_template,Blueprint
 from functools import wraps
 
@@ -44,6 +44,7 @@ def login_required(test):
 def home():
     # return "Hello, World!"  # return a string
     posts = db.session.query(BlogPost).all()
+
     return render_template('index.html', posts=posts)  # render a template
 
 

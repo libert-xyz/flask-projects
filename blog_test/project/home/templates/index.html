@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Welcome {{ request.form['username'] }}</h1>
+<h1>Welcome </h1>
+<h3> {{ session['name'] }}  </h3>
 <br>
 <p>Click <a href="/logout">here</a> to logout.</p>
 
@@ -13,7 +14,7 @@
 
   <strong>Title:</strong> {{post.title}} <br>
   <strong>Description:</strong> {{post.description}} <br>
-  <strong>Author:</strong> {{post.author.name}}
+<div class="text-muted">Posted by {{post.author.name}}</div>
 
   <br><br>
 
