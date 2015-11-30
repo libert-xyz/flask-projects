@@ -6,6 +6,7 @@ Flask-Bcrypt==0.7.1
 Flask-Migrate==1.6.0
 Flask-Script==2.0.5
 Flask-SQLAlchemy==2.1
+Flask-Testing==0.4.2
 Flask-WTF==0.12
 foreman==0.9.7
 futures==3.0.3
