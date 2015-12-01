@@ -1,4 +1,4 @@
-from projec import app
+from project import app
 
 ####################
 #### run server ####

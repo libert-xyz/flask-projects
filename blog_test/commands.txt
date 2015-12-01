@@ -23,3 +23,5 @@ python manage.py db upgrade
 
   #mkvirtualenv venv
   #workon venv
+
+  #vim ~/.virtualenvs/venv/bin/postactivate
