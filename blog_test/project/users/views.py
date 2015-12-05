@@ -7,7 +7,8 @@ from flask import flash, redirect, render_template, request, \
 #from functools import wraps
 from flask.ext.login import login_user
 from project.models import User, bcrypt
-from form import LoginForm
+from .form import LoginForm, RegisterForm
+from project import db
 from flask.ext.login import login_user, login_required, logout_user
 ################
 #### config ####
@@ -67,3 +68,18 @@ def logout():
     #session.pop('logged_in', None)
     flash('You were logged out.')
     return redirect(url_for('home.welcome'))
+
+@users_blueprint.route('/register/', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user = User(
+            name =form.username.data,
+            email=form.email.data,
+            password=form.password.data)
+
+        db.session.add(user)
+        db.session.commit()
+        login_user(user)
+        return redirect(url_for('home.home'))
+    return render_template('register.html', form=form)
